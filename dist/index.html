@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
   <!-- Normalize.css for better cross-browser consistency -->
   <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
   <!-- Main CSS file -->
   <link rel="stylesheet" href="css/styles.css" type="text/css">
+  <meta name="theme-color" content="#222222"/>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="manifest" href="/manifest.json">
-  <script src="./print.js"></script>
   <title>Restaurant Reviews</title>
 </head>
 
@@ -35,18 +35,18 @@
       <div class="filter-options">
         <h2>Filter Results</h2>
         
-        <select id="neighborhoods-select" name="neighborhoods" onchange="updateRestaurants()">
-          <option value="all">All Neighborhoods</option>
+        <select id="neighborhoods-select" name="neighborhoods" aria-label="neighborhood list" onchange="updateRestaurants()">
+          <option aria-label="neighborhood selection" value="all">All Neighborhoods</option>
         </select>
-        <select id="cuisines-select" name="cuisines" onchange="updateRestaurants()">
-          <option value="all">All Cuisines</option>
+        <select id="cuisines-select" name="cuisines" aria-label="cuisine list" onchange="updateRestaurants()">
+          <option aria-label="cuisine selection" value="all">All Cuisines</option>
         </select>
 
       </div>
     </section>
   </div>
     <section>
-      <div id="restaurants-list"></div>
+      <ul id="restaurants-list"></ul>
     </section>
 
 
