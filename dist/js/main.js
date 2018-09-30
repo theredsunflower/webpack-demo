@@ -159,12 +159,6 @@ createRestaurantHTML = (restaurant) => {
   name.innerHTML = restaurant.name;
   li.append(name);
 
-  var checkBox = addCheckbox();
-  li.append(checkBox);
-
-  var label = addLabel();
-  li.append(label);
-
   const neighborhood = document.createElement('p');
   neighborhood.innerHTML = restaurant.neighborhood;
   li.append(neighborhood);
@@ -178,8 +172,69 @@ createRestaurantHTML = (restaurant) => {
   more.href = DBHelper.urlForRestaurant(restaurant);
   li.append(more)
 
+  //gives users ability to mark restaurant as a favorite
+  var restId = restaurant.id;
+  restId = restId.toString();
+  var favStatus = restaurant.is_favorite;
+  var favorite = createFavorite();
+  li.append(favorite);
+
+  function createFavorite() {
+    var addBox = document.createElement('a');
+    addBox.id = restId + 'fav';
+    addBox.innerHTML = "unchecked";
+
+    document.body.appendChild(addBox);
+    console.log(favStatus);
+
+    check();
+
+    return addBox;
+}
+  function check() {
+    var updateBox = document.getElementById(restId + 'fav');
+    if (favStatus == true || favStatus == 'true') {
+      updateBox.innerHTML = "Favorite";
+      updateBox.addEventListener('click', rmFavorite);
+    }
+    else if (favStatus == false || favStatus == 'false') {
+      updateBox.innerHTML = "Not Favorite";
+      updateBox.addEventListener('click', addFavorite);      
+    }
+    else {
+      console.log("not sure what is happening here");
+   }
+  }
+
+  function addFavorite() {
+    var url = 'http://localhost:1337/restaurants/' + restId + '/?is_favorite=true';
+
+      fetch(url, {
+        method: 'PUT',
+      }).then(console.log("marking favorite"))
+      .catch(error => console.error('Error:', error));
+
+    var text = document.getElementById(restId + 'fav');
+    text.innerHTML = "new Favorite";
+    text.addEventListener('click', check); 
+
+  }  
+
+  function rmFavorite() {
+    var url = 'http://localhost:1337/restaurants/' + restId + '?is_favorite=false';
+
+      fetch(url, {
+        method: 'PUT',
+      }).then(console.log("removing favorite"))
+      .catch(error => console.error('Error:', error));
+
+    var text = document.getElementById(restId + 'fav');
+    text.innerHTML = "Removed";
+    text.addEventListener('click', check); 
+  }  
   return li
 }
+
 
 /**
  * Add markers for current restaurants to the map.
@@ -195,30 +250,6 @@ addMarkersToMap = (restaurants = self.restaurants) => {
   });
 }
 //add favorite checkbox and home page form
-  function addCheckbox() {
-  var addBox = document.createElement('input');
-  addBox.setAttribute('type', 'checkbox');
-  addBox.id = 'favorite';
-  addBox.className = 'css-checkbox';
-
-  document.body.appendChild(addBox);
-
-  return addBox;
-}
-
-function addLabel() {
-  var newLabel = document.createElement('label');
-  newLabel.htmlFor = 'favorite';
-  newLabel.className = 'css-label';
-
-  var text = document.createTextNode("Favorite?");
-
-  newLabel.appendChild(text);
-
-  document.body.appendChild(newLabel);
-
-  return newLabel
-}
 
 function showFormIndex() {
   var button = document.getElementById('review-button');
@@ -230,3 +261,5 @@ function showFormIndex() {
   });
 }
 showFormIndex();
+
+

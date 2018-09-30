@@ -336,6 +336,18 @@ button {
   font-size: 18px;
   margin: 2.5%;
 }
+
+.favorite {
+    background-color: #950740;
+    color: white;
+    display: inline-block;
+    font-size: 20pt;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    padding: 2.5%;
+    margin-top: 4%;
+}
 /*Tablet Responsive Styles*/
 @media only screen and (min-width: 600px) {
     #topsection {
