@@ -43,7 +43,7 @@ article, aside, canvas, details, figcaption, figure, footer, header, hgroup, men
   display: block;
 }
 #maincontent {
-  background-color: #eeeeee;
+  background-color: #1a1a1d;
   min-height: 100%;
   width: 100%;
 }
@@ -177,7 +177,7 @@ nav h1 a {
   min-height: 380px;
   text-align: left;
   width: 95%;
-  margin: 2.5%;
+  margin: 0 2.5% 2.5% 2.5%;
 }
 #restaurants-list .restaurant-img {
   background-color: #4e4e50;
@@ -309,6 +309,33 @@ nav h1 a {
   font-size: 16px;
 }
 
+.add-review {
+  background-color: #4e4e50;
+  padding: 0;
+  width: 100%;
+  margin: 0;
+}
+.add-review input {
+  padding: 2%;
+  margin: 2.5%;
+  width: 89%;
+}
+.add-review form {
+  display: none;
+}
+
+#review-section {
+  width: 100%;
+  float: left;
+}
+button {
+  width: 95%;
+  padding: 1.5%;
+  background-color: #950740;
+  color: white;
+  font-size: 18px;
+  margin: 2.5%;
+}
 /*Tablet Responsive Styles*/
 @media only screen and (min-width: 600px) {
     #topsection {
@@ -354,6 +381,16 @@ nav h1 a {
 #restaurant-name h1 {
   margin: 0;
   padding: 0;
+}
+
+button {
+  width: 33.3%;
+  margin-left: 33.3%;
+}
+#review-form {
+  width: 33.3%;
+  margin-left: 33.3%;
+  padding: 2.5%;
 }
 
 }

@@ -159,6 +159,12 @@ createRestaurantHTML = (restaurant) => {
   name.innerHTML = restaurant.name;
   li.append(name);
 
+  var checkBox = addCheckbox();
+  li.append(checkBox);
+
+  var label = addLabel();
+  li.append(label);
+
   const neighborhood = document.createElement('p');
   neighborhood.innerHTML = restaurant.neighborhood;
   li.append(neighborhood);
@@ -188,3 +194,39 @@ addMarkersToMap = (restaurants = self.restaurants) => {
     self.markers.push(marker);
   });
 }
+//add favorite checkbox and home page form
+  function addCheckbox() {
+  var addBox = document.createElement('input');
+  addBox.setAttribute('type', 'checkbox');
+  addBox.id = 'favorite';
+  addBox.className = 'css-checkbox';
+
+  document.body.appendChild(addBox);
+
+  return addBox;
+}
+
+function addLabel() {
+  var newLabel = document.createElement('label');
+  newLabel.htmlFor = 'favorite';
+  newLabel.className = 'css-label';
+
+  var text = document.createTextNode("Favorite?");
+
+  newLabel.appendChild(text);
+
+  document.body.appendChild(newLabel);
+
+  return newLabel
+}
+
+function showFormIndex() {
+  var button = document.getElementById('review-button');
+  var form = document.getElementById('review-form');
+
+  button.addEventListener('click', function() {
+    form.style.display = 'block';
+    button.style.display = 'none';
+  });
+}
+showFormIndex();

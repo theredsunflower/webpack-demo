@@ -41,10 +41,21 @@
         <select id="cuisines-select" name="cuisines" aria-label="cuisine list" onchange="updateRestaurants()">
           <option aria-label="cuisine selection" value="all">All Cuisines</option>
         </select>
-
       </div>
     </section>
   </div>
+      <div class="add-review">
+        <button id="review-button">Leave a Review</button>
+        <form id="review-form" class="front-page-review" action="/form.handler.js">
+          <h2>Submit Review</h2>
+          <input type="text" value="Restaurant Name">
+          <input type="text" value="Name">
+          <input type="text" value="Date">
+          <input type="text" value="Rating">
+          <input type="text" value="Review">          
+          <input class="submit-button" type="submit">
+        </form>
+      </div>    
     <section>
       <ul id="restaurants-list"></ul>
     </section>

@@ -35,18 +35,31 @@
       <section id="map-container">
       <div id="map" aria-label="location" role="application"></div>
     </section>
+      <div id="review-section" class="add-review">
+        <button id="review-button-two">Leave a Review</button>
+        <form id="review-form-two" class="front-page-review" action="/form.handler.js">
+          <h2>Submit Review</h2>
+          <input type="text" value="Restaurant Name">
+          <input type="text" value="Name">
+          <input type="text" value="Date">
+          <input type="text" value="Rating">
+          <input type="text" value="Review">          
+          <input class="submit-button" type="submit">
+        </form>
+      </div>      
     <!-- End map -->
     <!-- Beginning restaurant -->
     <section id="restaurant-container">
       <h2 id="restaurant-name"></h2>
       <img id="restaurant-img">
       <p id="restaurant-cuisine"></p>
+      <div id="favorite-restaurant"></div>
       <p id="restaurant-address"></p>
       <table id="restaurant-hours"></table>
     </section>
-    <!-- end restaurant -->
+    <!-- end restaurant --> 
     <!-- Beginning reviews -->
-    <section id="reviews-container">
+    <section id="reviews-container">      
       <ul id="reviews-list"></ul>
     </section>
     <!-- End reviews -->

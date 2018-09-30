@@ -63,6 +63,12 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   const cuisine = document.getElementById('restaurant-cuisine');
   cuisine.innerHTML = restaurant.cuisine_type;
 
+  const favorite = document.getElementById('favorite-restaurant');
+    var checkBox = addCheckbox();
+    var label = addLabel();
+  favorite.appendChild(checkBox);
+  favorite.appendChild(label);
+
   // fill operating hours
   if (restaurant.operating_hours) {
     fillRestaurantHoursHTML();
@@ -163,3 +169,39 @@ getParameterByName = (name, url) => {
     return '';
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
+
+  function addCheckbox() {
+  var addBox = document.createElement('input');
+  addBox.setAttribute('type', 'checkbox');
+  addBox.id = 'favorite';
+  addBox.className = 'css-checkbox';
+
+  document.body.appendChild(addBox);
+
+  return addBox;
+}
+
+function addLabel() {
+  var newLabel = document.createElement('label');
+  newLabel.htmlFor = 'favorite';
+  newLabel.className = 'css-label';
+
+  var text = document.createTextNode("Favorite?");
+
+  newLabel.appendChild(text);
+
+  document.body.appendChild(newLabel);
+
+  return newLabel
+}
+
+function showFormR() {
+  var button = document.getElementById('review-button-two');
+  var form = document.getElementById('review-form-two');
+
+  button.addEventListener('click', function() {
+    form.style.display = 'block';
+    button.style.display = 'none';
+  });
+}
+showFormR();
