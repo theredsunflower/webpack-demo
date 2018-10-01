@@ -178,32 +178,27 @@ createRestaurantHTML = (restaurant) => {
   var favStatus = restaurant.is_favorite;
   var favorite = createFavorite();
   li.append(favorite);
+  
+
 
   function createFavorite() {
-    var addBox = document.createElement('a');
-    addBox.id = restId + 'fav';
-    addBox.innerHTML = "unchecked";
 
-    document.body.appendChild(addBox);
-    console.log(favStatus);
+  var addBox = document.createElement('button');
+  addBox.id = restId + 'fav';
 
-    check();
-
-    return addBox;
-}
-  function check() {
-    var updateBox = document.getElementById(restId + 'fav');
-    if (favStatus == true || favStatus == 'true') {
-      updateBox.innerHTML = "Favorite";
-      updateBox.addEventListener('click', rmFavorite);
+    if(favStatus == true || favStatus == 'true'){
+      addBox.innerHTML = "Favorite";     
+      addBox.addEventListener('click', rmFavorite);
     }
-    else if (favStatus == false || favStatus == 'false') {
-      updateBox.innerHTML = "Not Favorite";
-      updateBox.addEventListener('click', addFavorite);      
+    else if(favStatus == false || favStatus == 'false'){
+      addBox.innerHTML = "Not Favorite";     
+      addBox.addEventListener('click', addFavorite);
     }
     else {
-      console.log("not sure what is happening here");
-   }
+      addBox.innerHTML = "Favorites not available";    
+    }
+  document.body.appendChild(addBox);
+  return addBox;
   }
 
   function addFavorite() {
@@ -215,8 +210,10 @@ createRestaurantHTML = (restaurant) => {
       .catch(error => console.error('Error:', error));
 
     var text = document.getElementById(restId + 'fav');
-    text.innerHTML = "new Favorite";
-    text.addEventListener('click', check); 
+    text.innerHTML = "Added";
+    text.removeEventListener('click', addFavorite);
+    text.addEventListener('click', rmFavorite); 
+
 
   }  
 
@@ -230,7 +227,9 @@ createRestaurantHTML = (restaurant) => {
 
     var text = document.getElementById(restId + 'fav');
     text.innerHTML = "Removed";
-    text.addEventListener('click', check); 
+    text.removeEventListener('click', rmFavorite);
+    text.addEventListener('click', addFavorite); 
+
   }  
   return li
 }
