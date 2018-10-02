@@ -37,6 +37,7 @@ self.addEventListener('install', function(event) {
         '/img/6.jpg',
         '/img/7.jpg',
         '/img/8.jpg',
+        '/img/9.jpg',
         '/img/star-1.png',
         '/img/star-2.png',
         '/js/dbhelper.js',
