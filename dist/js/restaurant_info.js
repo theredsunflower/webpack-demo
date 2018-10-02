@@ -20,6 +20,10 @@ window.initMap = () => {
   });
 }
 
+document.addEventListener('DOMContentLoaded', (event) => {
+  getReviews();
+});
+
 /**
  * Get current restaurant from page URL.
  */
@@ -44,6 +48,46 @@ fetchRestaurantFromURL = (callback) => {
     });
   }
 }
+function getReviews(){
+var restId = getParameterByName('id');
+var restUrl = 'http://localhost:1337/reviews/?restaurant_id=' + restId;
+console.log(restUrl);
+fetch(restUrl)
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(myJson) {
+    var reviews = myJson;
+    var i;
+    
+    if(reviews.length > 1) {
+      for(i = 0; i < reviews.length; i++) {
+      var review = reviews[i];
+      var reviewUl = document.getElementById('reviews-list');        
+      var reviewLi = document.createElement('li');
+      var reviewName = document.createElement('h2');
+      var reviewRating = document.createElement('p');
+      var reviewComment = document.createElement('p');
+      console.log(review);
+
+      reviewName.innerHTML = review.name;
+      reviewRating.innerHTML = review.rating;
+      reviewComment.innerHTML = review.comments;
+
+
+      reviewUl.append(reviewLi);
+      reviewLi.append(reviewName);
+      reviewLi.append(reviewRating);
+      reviewLi.append(reviewComment);
+
+      }
+    }
+    else {
+      console.log("no reviews");
+    }
+    return;
+  });
+}
 
 /**
  * Create restaurant HTML and add it to the webpage
@@ -63,18 +107,10 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   const cuisine = document.getElementById('restaurant-cuisine');
   cuisine.innerHTML = restaurant.cuisine_type;
 
-  const favorite = document.getElementById('favorite-restaurant');
-    var checkBox = addCheckbox();
-    var label = addLabel();
-  favorite.appendChild(checkBox);
-  favorite.appendChild(label);
-
   // fill operating hours
   if (restaurant.operating_hours) {
     fillRestaurantHoursHTML();
   }
-  // fill reviews
-  fillReviewsHTML();
 }
 
 /**
@@ -96,53 +132,6 @@ fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => 
     hours.appendChild(row);
   }
 }
-
-/**
- * Create all reviews HTML and add them to the webpage.
- */
-fillReviewsHTML = (reviews = self.restaurant.reviews) => {
-  const container = document.getElementById('reviews-container');
-  const title = document.createElement('h3');
-  title.innerHTML = 'Reviews';
-  container.appendChild(title);
-
-  if (!reviews) {
-    const noReviews = document.createElement('p');
-    noReviews.innerHTML = 'No reviews yet!';
-    container.appendChild(noReviews);
-    return;
-  }
-  const ul = document.getElementById('reviews-list');
-  reviews.forEach(review => {
-    ul.appendChild(createReviewHTML(review));
-  });
-  container.appendChild(ul);
-}
-
-/**
- * Create review HTML and add it to the webpage.
- */
-createReviewHTML = (review) => {
-  const li = document.createElement('li');
-  const name = document.createElement('p');
-  name.innerHTML = review.name;
-  li.appendChild(name);
-
-  const date = document.createElement('p');
-  date.innerHTML = review.date;
-  li.appendChild(date);
-
-  const rating = document.createElement('p');
-  rating.innerHTML = `Rating: ${review.rating}`;
-  li.appendChild(rating);
-
-  const comments = document.createElement('p');
-  comments.innerHTML = review.comments;
-  li.appendChild(comments);
-
-  return li;
-}
-
 /**
  * Add restaurant name to the breadcrumb navigation menu
  */
@@ -170,31 +159,6 @@ getParameterByName = (name, url) => {
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
 
-  function addCheckbox() {
-  var addBox = document.createElement('input');
-  addBox.setAttribute('type', 'checkbox');
-  addBox.id = 'favorite';
-  addBox.className = 'css-checkbox';
-
-  document.body.appendChild(addBox);
-
-  return addBox;
-}
-
-function addLabel() {
-  var newLabel = document.createElement('label');
-  newLabel.htmlFor = 'favorite';
-  newLabel.className = 'css-label';
-
-  var text = document.createTextNode("Favorite?");
-
-  newLabel.appendChild(text);
-
-  document.body.appendChild(newLabel);
-
-  return newLabel
-}
-
 function showFormR() {
   var button = document.getElementById('review-button-two');
   var form = document.getElementById('review-form-two');
@@ -205,3 +169,6 @@ function showFormR() {
   });
 }
 showFormR();
+
+
+
