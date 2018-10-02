@@ -348,6 +348,11 @@ button {
     padding: 2.5%;
     margin-top: 4%;
 }
+.favStars {
+  width: 50px;
+  height: auto;
+  margin-right: 50%;
+}
 /*Tablet Responsive Styles*/
 @media only screen and (min-width: 600px) {
     #topsection {

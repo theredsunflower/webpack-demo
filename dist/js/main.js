@@ -147,6 +147,11 @@ fillRestaurantsHTML = (restaurants = self.restaurants) => {
  * Create restaurant HTML.
  */
 createRestaurantHTML = (restaurant) => {
+  var restId = restaurant.id;
+  restId = restId.toString();
+  var favStatus = restaurant.is_favorite;
+  var favorite = createFavorite();
+
   const li = document.createElement('li');
 
   const image = document.createElement('img');
@@ -166,32 +171,27 @@ createRestaurantHTML = (restaurant) => {
   const address = document.createElement('p');
   address.innerHTML = restaurant.address;
   li.append(address);
+  li.append(favorite);
 
   const more = document.createElement('a');
   more.innerHTML = 'View Details';
   more.href = DBHelper.urlForRestaurant(restaurant);
-  li.append(more)
-
-  //gives users ability to mark restaurant as a favorite
-  var restId = restaurant.id;
-  restId = restId.toString();
-  var favStatus = restaurant.is_favorite;
-  var favorite = createFavorite();
-  li.append(favorite);
-  
+  li.append(more);
+ 
 
 
   function createFavorite() {
 
-  var addBox = document.createElement('button');
+  var addBox = document.createElement('img');
   addBox.id = restId + 'fav';
+  addBox.className = 'favStars';
 
     if(favStatus == true || favStatus == 'true'){
-      addBox.innerHTML = "Favorite";     
+      addBox.src = './img/star-1.png';     
       addBox.addEventListener('click', rmFavorite);
     }
     else if(favStatus == false || favStatus == 'false'){
-      addBox.innerHTML = "Not Favorite";     
+      addBox.src = './img/star-2.png';     
       addBox.addEventListener('click', addFavorite);
     }
     else {
@@ -209,10 +209,10 @@ createRestaurantHTML = (restaurant) => {
       }).then(console.log("marking favorite"))
       .catch(error => console.error('Error:', error));
 
-    var text = document.getElementById(restId + 'fav');
-    text.innerHTML = "Added";
-    text.removeEventListener('click', addFavorite);
-    text.addEventListener('click', rmFavorite); 
+    var star = document.getElementById(restId + 'fav');
+    star.src = './img/star-1.png';
+    star.removeEventListener('click', addFavorite);
+    star.addEventListener('click', rmFavorite); 
 
 
   }  
@@ -225,10 +225,10 @@ createRestaurantHTML = (restaurant) => {
       }).then(console.log("removing favorite"))
       .catch(error => console.error('Error:', error));
 
-    var text = document.getElementById(restId + 'fav');
-    text.innerHTML = "Removed";
-    text.removeEventListener('click', rmFavorite);
-    text.addEventListener('click', addFavorite); 
+    var star = document.getElementById(restId + 'fav');
+    star.src = './img/star-2.png';
+    star.removeEventListener('click', rmFavorite);
+    star.addEventListener('click', addFavorite); 
 
   }  
   return li

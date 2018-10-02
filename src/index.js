@@ -18,7 +18,7 @@ self.addEventListener('install', function(event) {
     })
   );
 });
-
+/*
 //listen for fetch events
 self.addEventListener("fetch", event => {
   let cacheRequest = event.request;
@@ -93,3 +93,4 @@ const handleNonAJAXEvent = (event, cacheRequest) => {
     })
   );
 };
+*/
