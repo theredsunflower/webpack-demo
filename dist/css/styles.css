@@ -268,9 +268,9 @@ nav h1 a {
   overflow: auto;
 }
 #reviews-container h2 {
-  color: #950740;
+  color: white;
   font-size: 24pt;
-  font-weight: 300;
+  font-weight: 600;
   letter-spacing: -1px;
   margin: 0;
   padding: 2.5%;
@@ -310,7 +310,7 @@ nav h1 a {
 }
 
 .add-review {
-  background-color: #4e4e50;
+  background-color: #1a1a1d;
   padding: 0;
   width: 100%;
   margin: 0;
@@ -334,7 +334,10 @@ button {
   background-color: #950740;
   color: white;
   font-size: 18px;
+  font-weight: 600;
   margin: 2.5%;
+  border-radius: 10px;
+  border: 1px solid white;
 }
 
 .favorite {
@@ -349,10 +352,24 @@ button {
     margin-top: 4%;
 }
 .favStars {
-  width: 50px;
+  width: 10%;
   height: auto;
-  margin-right: 50%;
+  margin-right: 90%;
 }
+select {
+  padding: 2%;
+  margin: 2.5%;
+  width: 95%
+}
+label {
+  font-size: 16px;
+  padding: 2.5%;
+}
+#submit-button {
+  background-color: #950740;
+  color: white;
+}
+
 /*Tablet Responsive Styles*/
 @media only screen and (min-width: 600px) {
     #topsection {

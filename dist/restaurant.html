@@ -35,22 +35,30 @@
       <section id="map-container">
       <div id="map" aria-label="location" role="application"></div>
     </section>
-      <div id="review-section" class="add-review">
-        <button id="review-button-two">Leave a Review</button>
-        <form id="review-form-two" class="front-page-review" action="/form.handler.js">
+      <div class="add-review">
+        <button id="review-button">Leave a Review</button>
+        <form id="review-form" class="front-page-review">
           <h2>Submit Review</h2>
-          <input type="text" value="Restaurant Name">
-          <input type="text" value="Name">
-          <input type="text" value="Date">
-          <input type="text" value="Rating">
-          <input type="text" value="Review">          
-          <input class="submit-button" type="submit">
+          <label for="nameF">Name</label>
+          <input id="nameF" type="text" name="Name" value="please enter your name">
+          <label for="ratingF">Rating</label>
+            <select id="ratingF" name="Rating">
+              <option value="1">1- Terrible, Avoid at all costs</option>
+              <option value="2">2- Forgettable, would not return</option>
+              <option value="3">3- Decent meal, would consider returning</option>
+              <option value="4">4- Great- Would definitely return</option>
+              <option value="5">5- Excellent experience</option>
+            </select>
+          <label for="reviewF">Review</label>
+          <input id="reviewF" type="text" name="Review" value="tell us about your experience">          
+          <input id="submit-button" value="Submit" type="button">
         </form>
       </div>      
     <!-- End map -->
     <!-- Beginning restaurant -->
     <section id="restaurant-container">
       <h2 id="restaurant-name"></h2>
+      <div id="fav-container"></div>
       <img id="restaurant-img">
       <p id="restaurant-cuisine"></p>
       <div id="favorite-restaurant"></div>

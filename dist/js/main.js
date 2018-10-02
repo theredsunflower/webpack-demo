@@ -182,7 +182,9 @@ createRestaurantHTML = (restaurant) => {
 
   function createFavorite() {
 
-  var addBox = document.createElement('img');
+  var addBox = document.createElement('input');
+  addBox.alt = "favorite toggle";
+  addBox.type = 'image';
   addBox.id = restId + 'fav';
   addBox.className = 'favStars';
 
@@ -250,15 +252,7 @@ addMarkersToMap = (restaurants = self.restaurants) => {
 }
 //add favorite checkbox and home page form
 
-function showFormIndex() {
-  var button = document.getElementById('review-button');
-  var form = document.getElementById('review-form');
-
-  button.addEventListener('click', function() {
-    form.style.display = 'block';
-    button.style.display = 'none';
-  });
+function submitForm() {
+  alert("submitting form");
+  return false;
 }
-showFormIndex();
-
-

@@ -51,7 +51,6 @@ fetchRestaurantFromURL = (callback) => {
 function getReviews(){
 var restId = getParameterByName('id');
 var restUrl = 'http://localhost:1337/reviews/?restaurant_id=' + restId;
-console.log(restUrl);
 fetch(restUrl)
   .then(function(response) {
     return response.json();
@@ -68,7 +67,6 @@ fetch(restUrl)
       var reviewName = document.createElement('h2');
       var reviewRating = document.createElement('p');
       var reviewComment = document.createElement('p');
-      console.log(review);
 
       reviewName.innerHTML = review.name;
       reviewRating.innerHTML = review.rating;
@@ -93,8 +91,69 @@ fetch(restUrl)
  * Create restaurant HTML and add it to the webpage
  */
 fillRestaurantHTML = (restaurant = self.restaurant) => {
-  const name = document.getElementById('restaurant-name');
-  name.innerHTML = restaurant.name;
+const name = document.getElementById('restaurant-name');
+name.innerHTML = restaurant.name;
+
+  var restId = restaurant.id;
+  restId = restId.toString();
+  var favStatus = restaurant.is_favorite;
+  var favorite = createFavorite();
+  var favContainer = document.getElementById('fav-container');
+  favContainer.appendChild(favorite);
+
+  function createFavorite() {
+
+  var addBox = document.createElement('input');
+  addBox.alt = "favorite toggle";
+  addBox.type = 'image';
+  addBox.id = restId + 'f';
+  addBox.className = 'favStars';
+
+    if(favStatus == true || favStatus == 'true'){
+      addBox.src = './img/star-1.png';     
+      addBox.addEventListener('click', rmFavorite);
+    }
+    else if(favStatus == false || favStatus == 'false'){
+      addBox.src = './img/star-2.png';     
+      addBox.addEventListener('click', addFavorite);
+    }
+    else {
+      addBox.innerHTML = "Favorites not available";    
+    }
+  document.body.appendChild(addBox);
+  return addBox;
+  }
+
+  function addFavorite() {
+    var url = 'http://localhost:1337/restaurants/' + restId + '/?is_favorite=true';
+
+      fetch(url, {
+        method: 'PUT',
+      }).then(console.log("marking favorite"))
+      .catch(error => console.error('Error:', error));
+
+    var star = document.getElementById(restId + 'f');
+    star.src = './img/star-1.png';
+    star.removeEventListener('click', addFavorite);
+    star.addEventListener('click', rmFavorite); 
+
+
+  }  
+
+  function rmFavorite() {
+    var url = 'http://localhost:1337/restaurants/' + restId + '?is_favorite=false';
+
+      fetch(url, {
+        method: 'PUT',
+      }).then(console.log("removing favorite"))
+      .catch(error => console.error('Error:', error));
+
+    var star = document.getElementById(restId + 'f');
+    star.src = './img/star-2.png';
+    star.removeEventListener('click', rmFavorite);
+    star.addEventListener('click', addFavorite); 
+
+  }
 
   const address = document.getElementById('restaurant-address');
   address.innerHTML = restaurant.address;
@@ -159,16 +218,49 @@ getParameterByName = (name, url) => {
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
 
-function showFormR() {
-  var button = document.getElementById('review-button-two');
-  var form = document.getElementById('review-form-two');
+function showFormIndex() {
+  var button = document.getElementById('review-button');
+  var form = document.getElementById('review-form');
+  var submit = document.getElementById('submit-button');
 
   button.addEventListener('click', function() {
     form.style.display = 'block';
     button.style.display = 'none';
   });
+
+  submit.addEventListener('click', getData);
 }
-showFormR();
+showFormIndex();
+
+function getData() {
+  var restId = getParameterByName('id')
+  var nameF = document.getElementById('nameF').value;
+  var ratingF = document.getElementById('ratingF').value;
+  var reviewF = document.getElementById('reviewF').value;
+  var data = {
+    "restaurant_id": restId,
+    "name": nameF,
+    "rating": ratingF,
+    "comments": reviewF
+};
+
+var url = 'http://localhost:1337/reviews/';
+
+fetch(url, {
+  method: 'POST', // or 'PUT'
+  body: JSON.stringify(data), // data can be `string` or {object}!
+  headers:{
+    'Content-Type': 'application/json'
+  }
+}).then(res => res.json())
+.then(response => console.log('Success:', JSON.stringify(response)))
+.catch(error => console.error('Error:', error));
+
+location.reload(true);
+alert("your review was added");
+
+return data;
+}
 
 
 
