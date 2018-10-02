@@ -69,7 +69,7 @@ fetch(restUrl)
       var reviewComment = document.createElement('p');
 
       reviewName.innerHTML = review.name;
-      reviewRating.innerHTML = review.rating;
+      reviewRating.innerHTML = 'Rating: ' + review.rating;
       reviewComment.innerHTML = review.comments;
 
 
