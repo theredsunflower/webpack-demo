@@ -47,14 +47,13 @@ self.addEventListener('install', function(event) {
     })
   );
 });
-/*
-self.addEventListener('fetch', function(event) {
-  var requestUrl = event.request.url;
-  event.respondWith(
-    fetch(event.request).then(console.log(event.request.url.index))
-  );
-});
-*/
+
+if(navigator.onLine) {
+  console.log("you are online");
+}
+else {
+  console.log("you are not online");
+}
 
 //listen for fetch events
 self.addEventListener("fetch", event => {
@@ -79,7 +78,6 @@ self.addEventListener("fetch", event => {
       const indR = event.request.referrer;
       const parts = indR.split("=");
       const id = parts[1];
-      console.log(id);
       
       handleAJAXEvent(event, id);
     }
@@ -87,8 +85,14 @@ self.addEventListener("fetch", event => {
   } else if(checkURL.pathname === "/reviews/") {
     const parts = checkURL.search.split("=");
     const id = parts[1];
-    
-    handleReviewEvent(event, id);
+    const method = event.request.method;
+    if(method === "POST"){
+      console.log("submitting form");
+    }
+    else {
+      handleReviewEvent(event, id);
+    }
+
   }
   else {
     handleNonAJAXEvent(event, cacheRequest);

@@ -232,11 +232,22 @@ function showFormIndex() {
 }
 showFormIndex();
 
+function hideFormIndex() {
+  alert("You are offline. Your review will be submitted when your connection is restored.");
+  var button = document.getElementById('review-button');
+  var form = document.getElementById('review-form');
+  var submit = document.getElementById('submit-button');
+    form.style.display = 'none';
+    button.style.display = 'none';
+}
+
 function getData() {
+
   var restId = getParameterByName('id')
   var nameF = document.getElementById('nameF').value;
   var ratingF = document.getElementById('ratingF').value;
   var reviewF = document.getElementById('reviewF').value;
+  var url = 'http://localhost:1337/reviews/';
   var data = {
     "restaurant_id": restId,
     "name": nameF,
@@ -244,8 +255,16 @@ function getData() {
     "comments": reviewF
 };
 
-var url = 'http://localhost:1337/reviews/';
+if (navigator.onLine) {
+  onlineResponse();
+}
+else {
+  window.addEventListener('online', onlineResponse);
+    hideFormIndex();
+}
 
+
+function onlineResponse() {
 fetch(url, {
   method: 'POST', // or 'PUT'
   body: JSON.stringify(data), // data can be `string` or {object}!
@@ -257,9 +276,9 @@ fetch(url, {
 .catch(error => console.error('Error:', error));
 
 location.reload(true);
-alert("your review was added");
 
 return data;
+}
 }
 
 
